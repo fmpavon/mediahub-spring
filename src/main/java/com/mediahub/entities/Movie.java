@@ -2,7 +2,6 @@ package com.mediahub.entities;
 
 import java.awt.Image;
 import java.util.Date;
-
 import lombok.Getter;
 import lombok.Setter;
 
