@@ -23,6 +23,9 @@ public class UserMovie {
 	@OneToOne(targetEntity = Movie.class)
 	private Movie movie;
 	
+	@OneToOne(targetEntity = User.class)
+	private User user;
+	
 	@Column(name = "isWatched", nullable = false)
 	private boolean isWatched; //if the user has marked the movie as watched
 }

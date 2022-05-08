@@ -26,6 +26,9 @@ public class UserShow {
 	@OneToOne(targetEntity = Show.class)
 	private Show show;
 	
+	@OneToOne(targetEntity = User.class)
+	private User user;
+	
 	@OneToMany(targetEntity = UserShowSeason.class)
 	private List<UserShowSeason> userShowSeasons;
 }
