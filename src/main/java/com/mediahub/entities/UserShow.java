@@ -8,6 +8,6 @@ import lombok.Setter;
 @Getter
 public class UserShow {
 	private long id;
-	private long showId;
+	private Show show;
 	private List<UserShowSeason> userShowSeasons;
 }

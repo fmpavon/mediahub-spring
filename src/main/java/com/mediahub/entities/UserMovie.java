@@ -7,6 +7,6 @@ import lombok.Setter;
 @Getter
 public class UserMovie {
 	private long id;
-	private long movieId;
+	private Movie movie;
 	private boolean isWatched; //if the user has marked the movie as watched
 }

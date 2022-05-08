@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 public class ShowSeason {
 	private long id;
-	private long showId;
+	private Show show;
 	private int seasonNumber;
 	private String title;
 	private List<ShowEpisode> episode;

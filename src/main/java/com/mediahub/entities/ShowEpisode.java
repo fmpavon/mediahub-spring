@@ -8,8 +8,7 @@ import lombok.Setter;
 @Getter
 public class ShowEpisode {
 	private long id;
-	private long showId;
-	private long seasonId;
+	private ShowSeason showSeason;
 	private int episodeNumber;
 	private boolean isReleased; //if the episode is already available
 	private String title;
