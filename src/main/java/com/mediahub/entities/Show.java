@@ -3,7 +3,11 @@ package com.mediahub.entities;
 import java.awt.Image;
 import java.util.Date;
 import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 public class Show {
 	private long id;
 	private String title;
