@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -19,7 +20,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @Entity
-@Table(name = "users")
+@Table(name = "Users")
 public class User {
 	
 	@Id
@@ -38,6 +39,7 @@ public class User {
 	private Date creationDate;
 
 	@OneToMany(targetEntity = UserMovie.class)
+	@JoinTable(name = "")
 	private List<UserMovie> userMovies;
 	
 	@OneToMany(targetEntity = UserShow.class)

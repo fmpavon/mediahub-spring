@@ -7,8 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -16,6 +18,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @Entity
+@Table(name = "UserSeasons")
 public class UserShowSeason {
 	
 	@Id
@@ -30,5 +33,6 @@ public class UserShowSeason {
 	private ShowSeason showSeason;
 	
 	@OneToMany(targetEntity = UserShowEpisode.class)
+	@JoinTable(name = "user_seasons_episodes")
 	private List<UserShowEpisode> userShowEpisodes;
 }
