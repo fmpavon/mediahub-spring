@@ -24,10 +24,6 @@ import lombok.Setter;
 public class User {
 	
 	@Id
-	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
-
 	@Column(name = "username", nullable = false)
 	private String username;
 
