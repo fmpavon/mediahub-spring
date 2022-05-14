@@ -16,4 +16,6 @@ public interface UserServiceI {
 	
 	public void removeUser(User user);
 	
+	public void removeUserById(String username);
+	
 }

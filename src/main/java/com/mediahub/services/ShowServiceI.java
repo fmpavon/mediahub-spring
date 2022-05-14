@@ -15,5 +15,7 @@ public interface ShowServiceI {
 	public Show updateShow(Show show);
 	
 	public void removeShow(Show show);
+	
+	public void removeShowById(long id);
 
 }

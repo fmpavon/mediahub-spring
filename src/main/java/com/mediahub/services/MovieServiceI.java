@@ -18,4 +18,6 @@ public interface MovieServiceI {
 	
 	public void removeMovie(Movie movie);
 	
+	public void removeMovieById(long id);
+	
 }
