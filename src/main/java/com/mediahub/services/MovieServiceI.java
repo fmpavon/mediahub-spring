@@ -10,8 +10,6 @@ public interface MovieServiceI {
 	
 	public Movie getMovieById(long id);
 	
-	public List<Movie> getMoviesByTitle(String title);
-	
 	public Movie addMovie(Movie movie);
 	
 	public Movie updateMovie(Movie movie);
