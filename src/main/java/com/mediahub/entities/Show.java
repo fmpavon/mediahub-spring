@@ -13,15 +13,14 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Setter
-@Getter
 @Entity
 @Table(name = "Shows")
 public class Show {
 	
+	public Show() {
+		super();
+	}
+
 	@Id
 	@Column(name = "id", nullable = false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,4 +42,53 @@ public class Show {
 	@OneToMany(targetEntity = ShowSeason.class)
 	@Column(name = "seasons")
 	private List<ShowSeason> seasons;
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public Date getReleaseDate() {
+		return releaseDate;
+	}
+
+	public void setReleaseDate(Date releaseDate) {
+		this.releaseDate = releaseDate;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public boolean isAiring() {
+		return isAiring;
+	}
+
+	public void setAiring(boolean isAiring) {
+		this.isAiring = isAiring;
+	}
+
+	public List<ShowSeason> getSeasons() {
+		return seasons;
+	}
+
+	public void setSeasons(List<ShowSeason> seasons) {
+		this.seasons = seasons;
+	}
+	
 }

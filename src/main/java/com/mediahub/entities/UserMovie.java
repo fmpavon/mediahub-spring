@@ -8,15 +8,14 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Setter
-@Getter
 @Entity
 @Table(name = "UserMovies")
 public class UserMovie {
 	
+	public UserMovie() {
+		super();
+	}
+
 	@Id
 	@Column(name = "id", nullable = false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,4 +29,37 @@ public class UserMovie {
 	
 	@Column(name = "isWatched", nullable = false)
 	private boolean isWatched; //if the user has marked the movie as watched
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public Movie getMovie() {
+		return movie;
+	}
+
+	public void setMovie(Movie movie) {
+		this.movie = movie;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public boolean isWatched() {
+		return isWatched;
+	}
+
+	public void setWatched(boolean isWatched) {
+		this.isWatched = isWatched;
+	}
+	
 }

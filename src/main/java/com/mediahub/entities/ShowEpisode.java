@@ -9,15 +9,14 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Setter
-@Getter
 @Entity
 @Table(name = "Episodes")
 public class ShowEpisode {
 	
+	public ShowEpisode() {
+		super();
+	}
+
 	@Id
 	@Column(name = "id", nullable = false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,4 +33,45 @@ public class ShowEpisode {
 	
 	@Column(name = "title", nullable = true)
 	private String title;
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public ShowSeason getShowSeason() {
+		return showSeason;
+	}
+
+	public void setShowSeason(ShowSeason showSeason) {
+		this.showSeason = showSeason;
+	}
+
+	public int getEpisodeNumber() {
+		return episodeNumber;
+	}
+
+	public void setEpisodeNumber(int episodeNumber) {
+		this.episodeNumber = episodeNumber;
+	}
+
+	public boolean isReleased() {
+		return isReleased;
+	}
+
+	public void setReleased(boolean isReleased) {
+		this.isReleased = isReleased;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	
 }

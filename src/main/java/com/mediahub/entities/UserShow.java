@@ -12,15 +12,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Setter
-@Getter
 @Entity
 @Table(name = "UserShows")
 public class UserShow {
 	
+	public UserShow() {
+		super();
+	}
+
 	@Id
 	@Column(name = "id", nullable = false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,4 +34,37 @@ public class UserShow {
 	@OneToMany(targetEntity = UserShowSeason.class)
 	@JoinTable(name = "user_shows_seasons")
 	private List<UserShowSeason> userShowSeasons;
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public Show getShow() {
+		return show;
+	}
+
+	public void setShow(Show show) {
+		this.show = show;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public List<UserShowSeason> getUserShowSeasons() {
+		return userShowSeasons;
+	}
+
+	public void setUserShowSeasons(List<UserShowSeason> userShowSeasons) {
+		this.userShowSeasons = userShowSeasons;
+	}
+	
 }
