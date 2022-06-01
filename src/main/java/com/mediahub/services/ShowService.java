@@ -3,10 +3,12 @@ package com.mediahub.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.mediahub.entities.Show;
 import com.mediahub.repositories.ShowRepo;
 
+@Service
 public class ShowService implements ShowServiceI{
 	
 	@Autowired

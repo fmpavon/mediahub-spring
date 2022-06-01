@@ -3,10 +3,12 @@ package com.mediahub.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.mediahub.entities.Movie;
 import com.mediahub.repositories.MovieRepo;
 
+@Service
 public class MovieService implements MovieServiceI{
 
 	@Autowired
