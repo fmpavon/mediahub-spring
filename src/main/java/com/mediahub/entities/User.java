@@ -1,5 +1,6 @@
 package com.mediahub.entities;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -20,6 +21,8 @@ public class User {
 	public User() {
 		super();
 		this.creationDate = new Date();
+		this.userMovies = new ArrayList<UserMovie>();
+		this.userShows = new ArrayList<UserShow>();
 	}
 	
 	@Id
