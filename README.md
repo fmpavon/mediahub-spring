@@ -1,2 +1,2 @@
 # mediahub-back
-Backend de MediaHub.
+MediaHub backend.
