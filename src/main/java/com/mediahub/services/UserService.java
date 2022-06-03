@@ -21,7 +21,7 @@ public class UserService implements UserServiceI {
 
 	@Override
 	public User getUserByUsername(String username) {
-		return userRepo.getById(username);
+		return userRepo.findById(username).get();
 	}
 
 	@Override

@@ -21,7 +21,7 @@ public class UserMovieService implements UserMovieServiceI{
 
 	@Override
 	public UserMovie getUserMovieById(long id) {
-		return userMovieRepo.getById(id);
+		return userMovieRepo.findById(id).get();
 	}
 
 	@Override

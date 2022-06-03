@@ -21,7 +21,7 @@ public class ShowService implements ShowServiceI{
 
 	@Override
 	public Show getShowById(long id) {
-		return showRepo.getById(id);
+		return showRepo.findById(id).get();
 	}
 
 	@Override
