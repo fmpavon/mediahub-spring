@@ -8,17 +8,22 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.transaction.Transactional;
 
 @Entity
+@Transactional
 @Table(name = "Users")
 public class User {
 	
 	public User() {
+		super();
+	}
+	
+	public User(String username, String password) {
 		super();
 		this.creationDate = new Date();
 		this.userMovies = new ArrayList<UserMovie>();
@@ -36,8 +41,7 @@ public class User {
 	@Column(name = "creationDate", nullable = false)
 	private Date creationDate;
 
-	@OneToMany(targetEntity = UserMovie.class, fetch = FetchType.EAGER)
-	@JoinTable(name = "")
+	@OneToMany(fetch = FetchType.EAGER, targetEntity = UserMovie.class)
 	private List<UserMovie> userMovies;
 	
 	@OneToMany(targetEntity = UserShow.class)
