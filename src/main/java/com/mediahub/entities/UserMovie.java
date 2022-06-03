@@ -12,6 +12,10 @@ import javax.persistence.Table;
 @Table(name = "UserMovies")
 public class UserMovie {
 	
+	public UserMovie() {
+		super();
+	}
+	
 	public UserMovie(User user, Movie movie) {
 		super();
 		this.id = 0;
