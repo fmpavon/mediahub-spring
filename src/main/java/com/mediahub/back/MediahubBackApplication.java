@@ -17,6 +17,7 @@ import com.mediahub.entities.Movie;
 import com.mediahub.entities.User;
 import com.mediahub.entities.UserMovie;
 import com.mediahub.services.MovieService;
+import com.mediahub.services.UserMovieService;
 import com.mediahub.services.UserService;
 
 @SpringBootApplication
@@ -30,6 +31,9 @@ public class MediahubBackApplication implements CommandLineRunner {
 	
 	@Autowired
 	private MovieService ms;
+	
+	@Autowired
+	private UserMovieService ums;
 	
 	private Scanner userInput;
 	
@@ -150,11 +154,11 @@ public class MediahubBackApplication implements CommandLineRunner {
 				break;
 				
 			case "add":
-				User uAdd = new User();
 				System.out.print("Username: ");
-				uAdd.setUsername(userInput.nextLine());
+				String username = userInput.nextLine();
 				System.out.print("Password: ");
-				uAdd.setPassword(userInput.nextLine());
+				String password = userInput.nextLine();
+				us.addUser(new User(username, password));
 				System.out.print("[OK] User added.\n");
 				break;
 				
@@ -210,9 +214,12 @@ public class MediahubBackApplication implements CommandLineRunner {
 					}
 				}
 				if (!movieCheck) {
-					//TODO: Create UserMovie service
-					//TODO: Add new UserMovie
-					//TODO: Add to user list of movies the new UserMovie
+					Movie movie = ms.getMovieById(mId);
+					UserMovie umAdd = new UserMovie(user, movie);
+					ums.addUserMovie(umAdd);
+					userMovies.add(umAdd);
+					user.setUserMovies(userMovies);
+					us.updateUser(user);
 				}
 				System.out.print("[OK] Movie added to user collection.\n");
 				break;
