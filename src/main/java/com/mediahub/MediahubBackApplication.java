@@ -1,4 +1,4 @@
-package com.mediahub.back;
+package com.mediahub;
 
 
 import java.util.Iterator;
@@ -21,9 +21,6 @@ import com.mediahub.services.UserMovieService;
 import com.mediahub.services.UserService;
 
 @SpringBootApplication
-@ComponentScan({"com.mediahub.services"})
-@EntityScan("com.mediahub.entities")
-@EnableJpaRepositories("com.mediahub.repositories")
 public class MediahubBackApplication implements CommandLineRunner {
 
 	@Autowired
