@@ -14,6 +14,8 @@ public interface MovieServiceI {
 	
 	public Movie updateMovie(Movie movie);
 	
+	public boolean movieExists(long id);
+	
 	public void removeMovie(Movie movie);
 	
 	public void removeMovieById(long id);

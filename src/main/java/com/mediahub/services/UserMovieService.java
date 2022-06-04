@@ -44,4 +44,14 @@ public class UserMovieService implements UserMovieServiceI{
 		userMovieRepo.deleteById(id);
 	}
 
+	@Override
+	public boolean userMovieExists(long id) {
+		for (UserMovie um : userMovieRepo.findAll()) {
+			if (um.getId() == id) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 }

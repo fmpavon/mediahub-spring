@@ -43,5 +43,15 @@ public class MovieService implements MovieServiceI{
 	public void removeMovieById(long id) {
 		movieRepo.deleteById(id);
 	}
+
+	@Override
+	public boolean movieExists(long id) {
+		for (Movie m : movieRepo.findAll()) {
+			if (m.getId() == id) {
+				return true;
+			}
+		}
+		return false;
+	}
 	
 }
