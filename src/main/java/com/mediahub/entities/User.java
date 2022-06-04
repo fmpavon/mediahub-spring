@@ -14,6 +14,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.transaction.Transactional;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Transactional
 @Table(name = "Users")
@@ -25,6 +27,8 @@ public class User {
 	
 	public User(String username, String password) {
 		super();
+		this.username = username;
+		this.password = password;
 		this.creationDate = new Date();
 		this.userMovies = new ArrayList<UserMovie>();
 		this.userShows = new ArrayList<UserShow>();
@@ -42,9 +46,11 @@ public class User {
 	private Date creationDate;
 
 	@OneToMany(fetch = FetchType.EAGER, targetEntity = UserMovie.class)
+	@JsonIgnore
 	private List<UserMovie> userMovies;
 	
 	@OneToMany(targetEntity = UserShow.class)
+	@JsonIgnore
 	private List<UserShow> userShows;
 
 	public String getUsername() {
