@@ -14,6 +14,8 @@ public interface UserServiceI {
 	
 	public User updateUser(User user);
 	
+	public boolean userExists(String username);
+	
 	public void removeUser(User user);
 	
 	public void removeUserById(String username);

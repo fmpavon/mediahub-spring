@@ -43,5 +43,15 @@ public class UserService implements UserServiceI {
 	public void removeUserById(String username) {
 		userRepo.deleteById(username);
 	}
+
+	@Override
+	public boolean userExists(String username) {
+		for (User user : userRepo.findAll()) {
+			if (user.getUsername().equalsIgnoreCase(username)) {
+				return true;
+			}
+		}
+		return false;
+	}
 	
 }
