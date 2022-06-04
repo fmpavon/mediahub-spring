@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "UserMovies")
 public class UserMovie {
@@ -33,6 +35,7 @@ public class UserMovie {
 	private Movie movie;
 	
 	@OneToOne(targetEntity = User.class)
+	@JsonIgnore
 	private User user;
 	
 	@Column(name = "isWatched", nullable = false)
