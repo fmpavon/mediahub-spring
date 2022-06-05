@@ -31,7 +31,6 @@ public class User {
 		this.password = password;
 		this.creationDate = new Date();
 		this.userMovies = new ArrayList<UserMovie>();
-		this.userShows = new ArrayList<UserShow>();
 	}
 	
 	@Id
@@ -49,10 +48,6 @@ public class User {
 	@JsonIgnore
 	private List<UserMovie> userMovies;
 	
-	@OneToMany(targetEntity = UserShow.class)
-	@JsonIgnore
-	private List<UserShow> userShows;
-
 	public String getUsername() {
 		return username;
 	}
@@ -75,14 +70,6 @@ public class User {
 
 	public void setUserMovies(List<UserMovie> userMovies) {
 		this.userMovies = userMovies;
-	}
-
-	public List<UserShow> getUserShows() {
-		return userShows;
-	}
-
-	public void setUserShows(List<UserShow> userShow) {
-		this.userShows = userShow;
 	}
 
 	public Date getCreationDate() {
