@@ -82,7 +82,7 @@ public class UserController {
 		
 		us.removeUserById(username);
 		new ResponseStatusException(HttpStatus.ACCEPTED, "User removed");
-		return ResponseEntity.noContent().build();
+		return ResponseEntity.ok().build();
 	}
 	
 	@PostMapping("users/add")
@@ -107,7 +107,7 @@ public class UserController {
 		User userAdd = new User(targetUser.getUsername(), targetUser.getPassword());
 		us.addUser(userAdd);
 		new ResponseStatusException(HttpStatus.ACCEPTED, "User added");
-		return ResponseEntity.noContent().build();
+		return ResponseEntity.ok().build();
 	}
 	
 	/**
