@@ -33,6 +33,10 @@ public class Movie {
 	
 	@Column(name = "image", nullable = true)
 	private String image;
+	
+
+	@Column(name = "backgroundImage", nullable = true)
+	private String backgroundImage;
 
 	public long getId() {
 		return id;
@@ -65,4 +69,13 @@ public class Movie {
 	public void setImage(String image) {
 		this.image = image;
 	}
+
+	public String getBackgroundImage() {
+		return backgroundImage;
+	}
+
+	public void setBackgroundImage(String backgroundImage) {
+		this.backgroundImage = backgroundImage;
+	}
+	
 }
