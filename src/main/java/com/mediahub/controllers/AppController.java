@@ -36,6 +36,7 @@ public class AppController {
 	@Autowired
 	private UserMovieServiceI ums;
 
+	@GetMapping("")
 	public String showIndex() {
 		return "index";
 	}
