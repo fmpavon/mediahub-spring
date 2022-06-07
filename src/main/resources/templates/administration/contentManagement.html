@@ -189,7 +189,7 @@
                             </a>
                         </li>
                         <li th:if="${user.userRole.name().equalsIgnoreCase('Administrator')}">
-                            <a th:href="@{/app/admin/users}" class="nav-link text-secondary">
+                            <a th:if="${user.userRole == 'Administrator'}" class="nav-link text-secondary">
                                 <svg class="bi d-block mx-auto mb-1" width="24" height="24">
                                     <use xlink:href="#userManagement"></use>
                                 </svg>

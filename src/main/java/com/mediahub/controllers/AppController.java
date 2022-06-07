@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.mediahub.classes.UserRole;
 import com.mediahub.entities.Movie;
 import com.mediahub.entities.User;
 import com.mediahub.entities.UserMovie;
@@ -75,6 +76,7 @@ public class AppController {
 		userCredentialsCookie.setHttpOnly(true);
 		response.addCookie(userCredentialsCookie);
 
+		model.addAttribute("user", user);
 		model.addAttribute("movies", ms.getMovies());
 		model.addAttribute("userMovies", user.getUserMovies());
 
@@ -110,6 +112,7 @@ public class AppController {
 			return "error";
 		}
 
+		model.addAttribute("user", user);
 		model.addAttribute("movies", ms.getMovies());
 		model.addAttribute("userMovies", user.getUserMovies());
 
@@ -354,4 +357,127 @@ public class AppController {
 
 		return "collection";
 	}
+
+	@GetMapping("/admin/users")
+	public String adminUsers(HttpServletRequest request, Model model) {
+
+		String username = "", password = "";
+		Cookie[] cookies = request.getCookies();
+		if (cookies == null) {
+			return "error";
+		}
+
+		for (Cookie cookie : cookies) {
+			if (cookie.getName().equalsIgnoreCase("user-id"))
+				username = cookie.getValue();
+			else if (cookie.getName().equalsIgnoreCase("user-credentials"))
+				password = cookie.getValue();
+		}
+
+		if (username.isEmpty() || password.isEmpty())
+			return "error";
+
+		// Check username
+		if (!us.userExists(username)) {
+			return "error";
+		}
+
+		User user = us.getUserByUsername(username);
+
+		// Check password
+		if (!user.getPassword().equals(password)) {
+			return "error";
+		}
+
+		// Check role
+		if (user.getUserRole() != UserRole.Administrator) {
+			return "error";
+		}
+
+		model.addAttribute("users", us.getUsers());
+		model.addAttribute("user", user);
+
+		return "administration/user/userManagement";
+	}
+
+	@GetMapping("/admin/user")
+	public String adminUser(HttpServletRequest request, @RequestParam String action,
+			@RequestParam String targetUsername, @RequestParam(required = false) String targetPassword,
+			@RequestParam(required = false) String targetUserRole, Model model) {
+
+		String username = "", password = "";
+		Cookie[] cookies = request.getCookies();
+		if (cookies == null) {
+			return "error";
+		}
+
+		for (Cookie cookie : cookies) {
+			if (cookie.getName().equalsIgnoreCase("user-id"))
+				username = cookie.getValue();
+			else if (cookie.getName().equalsIgnoreCase("user-credentials"))
+				password = cookie.getValue();
+		}
+
+		if (username.isEmpty() || password.isEmpty())
+			return "error";
+
+		// Check username
+		if (!us.userExists(username)) {
+			return "error";
+		}
+
+		User user = us.getUserByUsername(username);
+
+		// Check password
+		if (!user.getPassword().equals(password)) {
+			return "error";
+		}
+
+		// Check role
+		if (user.getUserRole() != UserRole.Administrator) {
+			return "error";
+		}
+
+		model.addAttribute("user", user);
+
+		switch (action) {
+			case "addPassthrough":
+				return "administration/user/addPassthrough";
+			case "add":
+				UserRole targetUserRoleFinal = UserRole.User;
+				switch(targetUserRole){
+					case "Administrator":
+						targetUserRoleFinal = UserRole.Administrator;
+						break;
+				}
+				User targetUser = new User(targetUsername, targetPassword, targetUserRoleFinal);
+				if (targetUser.getUsername() == null
+						|| targetUser.getPassword() == null) {
+					new ResponseStatusException(HttpStatus.BAD_REQUEST, "Must specify username and password");
+				} else if (targetUser.getUsername().length() < 4) {
+					new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username length must be greater than 4");
+				} else if (targetUser.getPassword().length() < 4) {
+					new ResponseStatusException(HttpStatus.BAD_REQUEST, "Password length must be greater than 4");
+				}
+				if (us.userExists(targetUser.getUsername())) {
+					new ResponseStatusException(HttpStatus.CONFLICT, "Username already used");
+				}
+				User userAdd = new User(targetUser.getUsername(), targetUser.getPassword(), targetUser.getUserRole());
+				us.addUser(userAdd);
+				model.addAttribute("users", us.getUsers());
+				return "administration/user/userManagement";
+			case "removePassthrough":
+				model.addAttribute("targetUsername", targetUsername);
+				return "administration/user/removePassthrough";
+			case "remove":
+				if (us.userExists(targetUsername)) {
+					us.removeUserById(targetUsername);
+				}
+				model.addAttribute("users", us.getUsers());
+				return "administration/user/userManagement";
+		}
+
+		return "error";
+	}
+
 }
