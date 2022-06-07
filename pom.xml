@@ -22,7 +22,7 @@
 	<description>Backend for MediaHub, as an API Rest</description>
 	
 	<properties>
-		<java.version>11</java.version>
+		<java.version>17</java.version>
 	</properties>
 	
 	<dependencies>
