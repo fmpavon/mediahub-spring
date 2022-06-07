@@ -63,8 +63,7 @@ public class AppController {
 			return "error";
 		}
 
-
-		//Set cookies
+		// Set cookies
 		Cookie userIdCookie = new Cookie("user-id", user.getUsername());
 		userIdCookie.setSecure(true);
 		userIdCookie.setHttpOnly(true);
@@ -74,30 +73,30 @@ public class AppController {
 		userCredentialsCookie.setSecure(true);
 		userCredentialsCookie.setHttpOnly(true);
 		response.addCookie(userCredentialsCookie);
-		
+
 		model.addAttribute("movies", ms.getMovies());
 		model.addAttribute("userMovies", user.getUserMovies());
 
-		return "app";
+		return "home";
 	}
 
 	@GetMapping("/home")
 	public String home(HttpServletRequest request, Model model) {
-				String username = "", password = "";
-				Cookie[] cookies = request.getCookies();
-				if (cookies == null) {
-					return "error";
-				}
-		
-				for (Cookie cookie : cookies) {
-					if (cookie.getName().equalsIgnoreCase("user-id"))
-						username = cookie.getValue();
-					else if (cookie.getName().equalsIgnoreCase("user-credentials"))
-						password = cookie.getValue();
-				}
-		
-				if (username.isEmpty() || password.isEmpty())
-					return "error";
+		String username = "", password = "";
+		Cookie[] cookies = request.getCookies();
+		if (cookies == null) {
+			return "error";
+		}
+
+		for (Cookie cookie : cookies) {
+			if (cookie.getName().equalsIgnoreCase("user-id"))
+				username = cookie.getValue();
+			else if (cookie.getName().equalsIgnoreCase("user-credentials"))
+				password = cookie.getValue();
+		}
+
+		if (username.isEmpty() || password.isEmpty())
+			return "error";
 		// Check username
 		if (!us.userExists(username)) {
 			return "error";
@@ -109,31 +108,31 @@ public class AppController {
 		if (!user.getPassword().equals(password)) {
 			return "error";
 		}
-		
+
 		model.addAttribute("movies", ms.getMovies());
 		model.addAttribute("userMovies", user.getUserMovies());
 
-		return "app";
+		return "home";
 	}
 
 	@GetMapping("/movie")
 	public String movie(HttpServletRequest request, @RequestParam long movieId,
 			Model model) {
-				String username = "", password = "";
-				Cookie[] cookies = request.getCookies();
-				if (cookies == null) {
-					return "error";
-				}
-		
-				for (Cookie cookie : cookies) {
-					if (cookie.getName().equalsIgnoreCase("user-id"))
-						username = cookie.getValue();
-					else if (cookie.getName().equalsIgnoreCase("user-credentials"))
-						password = cookie.getValue();
-				}
-		
-				if (username.isEmpty() || password.isEmpty())
-					return "error";
+		String username = "", password = "";
+		Cookie[] cookies = request.getCookies();
+		if (cookies == null) {
+			return "error";
+		}
+
+		for (Cookie cookie : cookies) {
+			if (cookie.getName().equalsIgnoreCase("user-id"))
+				username = cookie.getValue();
+			else if (cookie.getName().equalsIgnoreCase("user-credentials"))
+				password = cookie.getValue();
+		}
+
+		if (username.isEmpty() || password.isEmpty())
+			return "error";
 		// Check username
 		if (!us.userExists(username)) {
 			return "error";
@@ -157,7 +156,7 @@ public class AppController {
 				model.addAttribute("userMovie", um);
 			}
 		}
-		
+
 		model.addAttribute("movie", ms.getMovieById(movieId));
 
 		return "movie";
@@ -166,21 +165,21 @@ public class AppController {
 	@GetMapping("/movie/add")
 	public String addUserMovie(HttpServletRequest request, @RequestParam long movieId,
 			Model model) {
-				String username = "", password = "";
-				Cookie[] cookies = request.getCookies();
-				if (cookies == null) {
-					return "error";
-				}
-		
-				for (Cookie cookie : cookies) {
-					if (cookie.getName().equalsIgnoreCase("user-id"))
-						username = cookie.getValue();
-					else if (cookie.getName().equalsIgnoreCase("user-credentials"))
-						password = cookie.getValue();
-				}
-		
-				if (username.isEmpty() || password.isEmpty())
-					return "error";
+		String username = "", password = "";
+		Cookie[] cookies = request.getCookies();
+		if (cookies == null) {
+			return "error";
+		}
+
+		for (Cookie cookie : cookies) {
+			if (cookie.getName().equalsIgnoreCase("user-id"))
+				username = cookie.getValue();
+			else if (cookie.getName().equalsIgnoreCase("user-credentials"))
+				password = cookie.getValue();
+		}
+
+		if (username.isEmpty() || password.isEmpty())
+			return "error";
 		// Check username
 		if (!us.userExists(username)) {
 			return "error";
@@ -214,7 +213,7 @@ public class AppController {
 		userMovies.add(userMovieAdd);
 		user.setUserMovies(userMovies);
 		us.updateUser(user);
-		
+
 		model.addAttribute("movies", ms.getMovies());
 		model.addAttribute("userMovies", user.getUserMovies());
 
@@ -223,21 +222,21 @@ public class AppController {
 
 	@GetMapping("/movie/remove")
 	public String removeUserMovie(HttpServletRequest request, @RequestParam long userMovieId, Model model) {
-				String username = "", password = "";
-				Cookie[] cookies = request.getCookies();
-				if (cookies == null) {
-					return "error";
-				}
-		
-				for (Cookie cookie : cookies) {
-					if (cookie.getName().equalsIgnoreCase("user-id"))
-						username = cookie.getValue();
-					else if (cookie.getName().equalsIgnoreCase("user-credentials"))
-						password = cookie.getValue();
-				}
-		
-				if (username.isEmpty() || password.isEmpty())
-					return "error";
+		String username = "", password = "";
+		Cookie[] cookies = request.getCookies();
+		if (cookies == null) {
+			return "error";
+		}
+
+		for (Cookie cookie : cookies) {
+			if (cookie.getName().equalsIgnoreCase("user-id"))
+				username = cookie.getValue();
+			else if (cookie.getName().equalsIgnoreCase("user-credentials"))
+				password = cookie.getValue();
+		}
+
+		if (username.isEmpty() || password.isEmpty())
+			return "error";
 		// Check user exists
 		if (!us.userExists(username)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User doesn't exist");
@@ -264,7 +263,7 @@ public class AppController {
 
 		// Finally remove UserMovie from db
 		ums.removeUserMovieById(userMovieId);
-		
+
 		model.addAttribute("movies", ms.getMovies());
 		model.addAttribute("userMovies", user.getUserMovies());
 
@@ -276,7 +275,7 @@ public class AppController {
 			@RequestParam boolean isWatched,
 			Model model) {
 
-				String username = "", password = "";
+		String username = "", password = "";
 		Cookie[] cookies = request.getCookies();
 		if (cookies == null) {
 			return "error";
@@ -312,7 +311,7 @@ public class AppController {
 		UserMovie userMovie = ums.getUserMovieById(userMovieId);
 		userMovie.setWatched(isWatched);
 		ums.updateUserMovie(userMovie);
-		
+
 		model.addAttribute("movies", ms.getMovies());
 		model.addAttribute("userMovies", user.getUserMovies());
 
