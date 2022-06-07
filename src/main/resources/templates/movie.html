@@ -171,7 +171,7 @@
 
                     <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                         <li>
-                            <a th:href="@{/app/home(username=${username}, password=${password})}" class="nav-link text-dark">
+                            <a th:href="@{/app/home}" class="nav-link text-dark">
                                 <svg class="bi d-block mx-auto mb-1" width="24" height="24">
                                     <use xlink:href="#home"></use>
                                 </svg>
@@ -179,7 +179,7 @@
                             </a>
                         </li>
                         <li>
-                            <a th:href="@{/app/collection(username=${username}, password=${password})}" class="nav-link text-secondary">
+                            <a th:href="@{/app/collection}" class="nav-link text-secondary">
                                 <svg class="bi d-block mx-auto mb-1" width="24" height="24">
                                     <use xlink:href="#collection"></use>
                                 </svg>
@@ -233,7 +233,7 @@
                 <div class="col order-5">
                     <h1 th:text="${movie.title}"></h1>
                     <p th:text="${movie.releaseDate}" class="text-decoration-secondary"></p>
-                    <a th:if="${userMovie == null}" class="text-decoration-none" th:href="@{/app/movie/add(movieId=${movie.id}, username=${username}, password=${password})}">
+                    <a th:if="${userMovie == null}" class="text-decoration-none" th:href="@{/app/movie/add(movieId=${movie.id})}">
                         <button type="button" class="btn btn-dark p-2">
                             <svg class="bi d-flex mx-auto mb-1" width="24" height="24">
                                 <use xlink:href="#empty"></use>
@@ -259,17 +259,17 @@
                             <span class="visually-hidden">Cambiar estado</span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" th:href="@{/app/movie/update(userMovieId=${userMovie.id}, username=${username}, password=${password}, isWatched=true)}">
+                            <li><a class="dropdown-item" th:href="@{/app/movie/update(userMovieId=${userMovie.id}, isWatched=true)}">
                                     <svg class="bi d-flex mx-auto mb-1" width="24" height="24">
                                         <use xlink:href="#watched"></use>
                                     </svg>
                                     Marcar como visto</a></li>
-                            <li><a class="dropdown-item" th:href="@{/app/movie/update(userMovieId=${userMovie.id}, username=${username}, password=${password}, isWatched=false)}">
+                            <li><a class="dropdown-item" th:href="@{/app/movie/update(userMovieId=${userMovie.id}, isWatched=false)}">
                                     <svg class="bi d-flex mx-auto mb-1" width="24" height="24">
                                         <use xlink:href="#added"></use>
                                     </svg>
                                     Marcar como no visto</a></li>
-                            <li><a class="dropdown-item" th:href="@{/app/movie/remove(userMovieId=${userMovie.id}, username=${username}, password=${password})}">
+                            <li><a class="dropdown-item" th:href="@{/app/movie/remove(userMovieId=${userMovie.id})}">
                                     <svg class="bi d-flex mx-auto mb-1" width="24" height="24">
                                         <use xlink:href="#empty"></use>
                                     </svg>

@@ -167,7 +167,7 @@
 
                     <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                         <li>
-                            <a th:href="@{/app/home(username=${username}, password=${password})}" class="nav-link text-dark">
+                            <a th:href="@{/app/home}" class="nav-link text-dark">
                                 <svg class="bi d-block mx-auto mb-1" width="24" height="24">
                                     <use xlink:href="#home"></use>
                                 </svg>
@@ -175,7 +175,7 @@
                             </a>
                         </li>
                         <li>
-                            <a th:href="@{/app/collection(username=${username}, password=${password})}" class="nav-link text-secondary">
+                            <a th:href="@{/app/collection}" class="nav-link text-secondary">
                                 <svg class="bi d-block mx-auto mb-1" width="24" height="24">
                                     <use xlink:href="#collection"></use>
                                 </svg>
@@ -205,7 +205,7 @@
         <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5 mx-2 mb-1">
 
             <th:block th:each="movie : ${movies}">
-                <a th:href="@{/app/movie(movieId=${movie.id}, username=${username}, password=${password})}" class="text-decoration-none">
+                <a th:href="@{/app/movie(movieId=${movie.id})}" class="text-decoration-none">
                     <div class="col">
                         <div th:attr="style=${'background-image: url(' + movie.backgroundImage + ')'}"
                             class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-4 shadow-lg">
