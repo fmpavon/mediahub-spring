@@ -10,6 +10,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.mediahub.classes.UserRole;
 import com.mediahub.entities.Movie;
 import com.mediahub.entities.User;
 import com.mediahub.entities.UserMovie;
@@ -152,7 +153,19 @@ public class MediahubBackApplication implements CommandLineRunner {
 				String username = userInput.nextLine();
 				System.out.print("Password: ");
 				String password = userInput.nextLine();
-				us.addUser(new User(username, password));
+				System.out.print("'Admin' / 'User': ");
+				String userRoleInput = userInput.nextLine();
+				UserRole userRole;
+				switch (userRoleInput){
+					case "Admin":
+						userRole = UserRole.Administrator;
+						break;
+					case "User":
+						userRole = UserRole.User;
+					default:
+						userRole = UserRole.User;
+				}
+				us.addUser(new User(username, password, userRole));
 				System.out.print("[OK] User added.\n");
 				break;
 				

@@ -15,6 +15,7 @@ import javax.persistence.TemporalType;
 import javax.transaction.Transactional;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mediahub.classes.UserRole;
 
 @Entity
 @Transactional
@@ -25,10 +26,11 @@ public class User {
 		super();
 	}
 	
-	public User(String username, String password) {
+	public User(String username, String password, UserRole userRole) {
 		super();
 		this.username = username;
 		this.password = password;
+		this.userRole = userRole;
 		this.creationDate = new Date();
 		this.userMovies = new ArrayList<UserMovie>();
 	}
@@ -39,6 +41,9 @@ public class User {
 
 	@Column(name = "password", nullable = false)
 	private String password;
+
+	@Column(name = "userRole", nullable = false)
+	private UserRole userRole;
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name = "creationDate", nullable = false)
@@ -62,6 +67,14 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public UserRole getUserRole() {
+		return userRole;
+	}
+
+	public void setUserRole(UserRole userRole) {
+		this.userRole = userRole;
 	}
 
 	public List<UserMovie> getUserMovies() {

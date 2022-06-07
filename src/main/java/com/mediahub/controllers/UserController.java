@@ -104,7 +104,7 @@ public class UserController {
 		}
 		
 		//Adds the new user
-		User userAdd = new User(targetUser.getUsername(), targetUser.getPassword());
+		User userAdd = new User(targetUser.getUsername(), targetUser.getPassword(), targetUser.getUserRole());
 		us.addUser(userAdd);
 		new ResponseStatusException(HttpStatus.ACCEPTED, "User added");
 		return ResponseEntity.ok().build();
