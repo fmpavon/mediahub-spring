@@ -610,11 +610,7 @@ public class AppController {
 			case "addPassthrough":
 				return "administration/content/addPassthrough";
 			case "add":
-				if(!ms.movieExists(targetMovieId)){
-					return "error";
-				}
-
-				Movie targetMovieAdd = ms.getMovieById(targetMovieId);
+				Movie targetMovieAdd = new Movie();
 				targetMovieAdd.setTitle(targetTitle);
 				targetMovieAdd.setImage(targetImage);
 				targetMovieAdd.setReleaseDate(targetReleaseDate);
@@ -641,7 +637,9 @@ public class AppController {
 			model.addAttribute("movies", ms.getMovies());
 			return "administration/content/contentManagement";
 			case "removePassthrough":
-				model.addAttribute("targetMovieId", targetMovieId);
+				Movie targetMovieRemoval = ms.getMovieById(targetMovieId);
+				model.addAttribute("targetTitle", targetMovieRemoval.getTitle());
+				model.addAttribute("targetMovieId", targetMovieRemoval.getId());
 				return "administration/content/removePassthrough";
 			case "remove":
 				if (ms.movieExists(targetMovieId)) {
