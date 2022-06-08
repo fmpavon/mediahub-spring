@@ -162,6 +162,7 @@ public class AppController {
 			}
 		}
 
+		model.addAttribute("user", user);
 		model.addAttribute("movie", ms.getMovieById(movieId));
 
 		return "movie";
@@ -219,6 +220,7 @@ public class AppController {
 		user.setUserMovies(userMovies);
 		us.updateUser(user);
 
+		model.addAttribute("user", user);
 		model.addAttribute("movies", ms.getMovies());
 		model.addAttribute("userMovies", user.getUserMovies());
 
@@ -269,6 +271,7 @@ public class AppController {
 		// Finally remove UserMovie from db
 		ums.removeUserMovieById(userMovieId);
 
+		model.addAttribute("user", user);
 		model.addAttribute("movies", ms.getMovies());
 		model.addAttribute("userMovies", user.getUserMovies());
 
@@ -317,6 +320,7 @@ public class AppController {
 		userMovie.setWatched(isWatched);
 		ums.updateUserMovie(userMovie);
 
+		model.addAttribute("user", user);
 		model.addAttribute("movies", ms.getMovies());
 		model.addAttribute("userMovies", user.getUserMovies());
 
