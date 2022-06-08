@@ -1,5 +1,6 @@
 package com.mediahub.controllers;
 
+import java.sql.Date;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
@@ -353,6 +354,7 @@ public class AppController {
 			return "error";
 		}
 
+		model.addAttribute("user", user);
 		model.addAttribute("userMovies", user.getUserMovies());
 
 		return "collection";
@@ -479,7 +481,7 @@ public class AppController {
 						break;
 				}
 				User targetUserUpdate = us.getUserByUsername(targetUsername);
-				//Checks
+				// Checks
 				if (targetUserUpdate.getUsername() == null
 						|| targetUserUpdate.getPassword() == null) {
 					new ResponseStatusException(HttpStatus.BAD_REQUEST, "Must specify username and password");
@@ -493,7 +495,8 @@ public class AppController {
 				}
 				targetUserUpdate.setPassword(targetPassword);
 				targetUserUpdate.setUserRole(targetUserRoleFinal);
-				User userUpdate = new User(targetUserUpdate.getUsername(), targetUserUpdate.getPassword(), targetUserUpdate.getUserRole());
+				User userUpdate = new User(targetUserUpdate.getUsername(), targetUserUpdate.getPassword(),
+						targetUserUpdate.getUserRole());
 				us.updateUser(userUpdate);
 				model.addAttribute("users", us.getUsers());
 				return "administration/user/userManagement";
@@ -506,6 +509,142 @@ public class AppController {
 				}
 				model.addAttribute("users", us.getUsers());
 				return "administration/user/userManagement";
+		}
+
+		return "error";
+	}
+
+	@GetMapping("/admin/movies")
+	public String adminMovies(HttpServletRequest request, Model model) {
+
+		String username = "", password = "";
+		Cookie[] cookies = request.getCookies();
+		if (cookies == null) {
+			return "error";
+		}
+
+		for (Cookie cookie : cookies) {
+			if (cookie.getName().equalsIgnoreCase("user-id"))
+				username = cookie.getValue();
+			else if (cookie.getName().equalsIgnoreCase("user-credentials"))
+				password = cookie.getValue();
+		}
+
+		if (username.isEmpty() || password.isEmpty())
+			return "error";
+
+		// Check username
+		if (!us.userExists(username)) {
+			return "error";
+		}
+
+		User user = us.getUserByUsername(username);
+
+		// Check password
+		if (!user.getPassword().equals(password)) {
+			return "error";
+		}
+
+		// Check role
+		if (user.getUserRole() != UserRole.Administrator) {
+			return "error";
+		}
+
+		model.addAttribute("movies", ms.getMovies());
+		model.addAttribute("user", user);
+
+		return "administration/content/contentManagement";
+	}
+
+	@GetMapping("/admin/movie")
+	public String adminMovie(HttpServletRequest request,
+			@RequestParam String action,
+			@RequestParam long targetMovieId,
+			@RequestParam(required = false) String targetImage,
+			@RequestParam(required = false) String targetTitle,
+			@RequestParam(required = false) String targetBackgroundImage, 
+			@RequestParam(required = false) Date targetReleaseDate,
+			Model model) {
+
+		String username = "", password = "";
+
+		Cookie[] cookies = request.getCookies();
+		if (cookies == null) {
+			return "error";
+		}
+
+		for (Cookie cookie : cookies) {
+			if (cookie.getName().equalsIgnoreCase("user-id"))
+				username = cookie.getValue();
+			else if (cookie.getName().equalsIgnoreCase("user-credentials"))
+				password = cookie.getValue();
+		}
+
+		if (username.isEmpty() || password.isEmpty())
+			return "error";
+
+		// Check username
+		if (!us.userExists(username)) {
+			return "error";
+		}
+
+		User user = us.getUserByUsername(username);
+
+		// Check password
+		if (!user.getPassword().equals(password)) {
+			return "error";
+		}
+
+		// Check role
+		if (user.getUserRole() != UserRole.Administrator) {
+			return "error";
+		}
+
+		model.addAttribute("user", user);
+
+		switch (action) {
+			case "addPassthrough":
+				return "administration/content/addPassthrough";
+			case "add":
+				if(!ms.movieExists(targetMovieId)){
+					return "error";
+				}
+
+				Movie targetMovieAdd = ms.getMovieById(targetMovieId);
+				targetMovieAdd.setTitle(targetTitle);
+				targetMovieAdd.setImage(targetImage);
+				targetMovieAdd.setReleaseDate(targetReleaseDate);
+				targetMovieAdd.setBackgroundImage(targetBackgroundImage);
+				ms.addMovie(targetMovieAdd);
+
+				model.addAttribute("movies", ms.getMovies());
+				return "administration/content/contentManagement";
+			case "updatePassthrough":
+				model.addAttribute("targetMovie", ms.getMovieById(targetMovieId));
+				return "administration/content/updatePassthrough";
+			case "update":
+			if(!ms.movieExists(targetMovieId)){
+				return "error";
+			}
+
+			Movie targetMovieUpdate = ms.getMovieById(targetMovieId);
+			targetMovieUpdate.setTitle(targetTitle);
+			targetMovieUpdate.setImage(targetImage);
+			targetMovieUpdate.setReleaseDate(targetReleaseDate);
+			targetMovieUpdate.setBackgroundImage(targetBackgroundImage);
+			ms.updateMovie(targetMovieUpdate);
+
+			model.addAttribute("movies", ms.getMovies());
+			return "administration/content/contentManagement";
+			case "removePassthrough":
+				model.addAttribute("targetMovieId", targetMovieId);
+				return "administration/content/removePassthrough";
+			case "remove":
+				if (ms.movieExists(targetMovieId)) {
+					ms.removeMovieById(targetMovieId);
+				}
+				model.addAttribute("movies", ms.getMovies());
+				return "administration/content/contentManagement";
 		}
 
 		return "error";
