@@ -238,16 +238,16 @@
             </div>
         </header>
 
-        <h1 class="ms-5 mt-3">Añadir usuario</h1>
+        <h1 class="ms-5 mt-3">Modificar usuario</h1>
         <div class="ms-5 me-5 mt-4">
             <form th:action="@{/app/admin/user(action = 'update', targetUsername = ${targetUser.username})}" method="GET">
                 <div class="form-group form-floating mb-3">
                     <input disabled th:value="${targetUser.username}" type="text" class="form-control" id="targetUsername" placeholder="Usuario" name="targetUsername" required>
-                    <label for="dni">Usuario</label>
+                    <label for="username">Usuario</label>
                 </div>
                 <div class="form-group form-floating mb-3 visually-hidden">
                     <input th:value="${targetUser.username}" type="text" class="form-control" id="targetUsername" placeholder="Usuario" name="targetUsername" required>
-                    <label for="dni">Usuario</label>
+                    <label for="username">Usuario</label>
                 </div>
                 <div class="form-group form-floating mb-3">
                     <input th:value="${targetUser.password}" type="password" class="form-control" id="targetPassword" placeholder="······" name="targetPassword" required>
@@ -264,7 +264,7 @@
                     <button type="submit" name="action" id="action" value="update" class="btn btn-success text-white">
                         <span id="btnLoad" class="spinner-border spinner-border-sm visually-hidden" role="status" aria-hidden="true"></span>
                         <svg id="btnIcon" class="bi mx-auto me-1" width="16" height="16"><use xlink:href="#modificar"></use></svg>
-                         Actualizar empleado
+                         Modificar usuario
                     </button>
                 </div>
             </form>
