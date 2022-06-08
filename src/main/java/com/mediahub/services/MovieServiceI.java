@@ -7,6 +7,8 @@ import com.mediahub.entities.Movie;
 public interface MovieServiceI {
 	
 	public List<Movie> getMovies();
+
+	public List<Movie> getMoviesByTitle(String searchString);
 	
 	public Movie getMovieById(long id);
 	

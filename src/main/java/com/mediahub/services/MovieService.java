@@ -53,5 +53,10 @@ public class MovieService implements MovieServiceI{
 		}
 		return false;
 	}
+
+	@Override
+	public List<Movie> getMoviesByTitle(String searchString) {
+		return movieRepo.findByTitleLikeIgnoreCase(searchString);
+	}
 	
 }

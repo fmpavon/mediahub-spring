@@ -9,7 +9,7 @@ import com.mediahub.entities.Movie;
 
 public interface MovieRepo extends JpaRepository<Movie, Long>{
 	
-	List<Movie> findByTitle(String title);
+	List<Movie> findByTitleLikeIgnoreCase(String title);
 
 	List<Movie> findByReleaseDate(Date releaseDate);
 	

@@ -566,7 +566,7 @@ public class AppController {
 			@RequestParam long targetMovieId,
 			@RequestParam(required = false) String targetImage,
 			@RequestParam(required = false) String targetTitle,
-			@RequestParam(required = false) String targetBackgroundImage, 
+			@RequestParam(required = false) String targetBackgroundImage,
 			@RequestParam(required = false) Date targetReleaseDate,
 			Model model) {
 
@@ -623,19 +623,19 @@ public class AppController {
 				model.addAttribute("targetMovie", ms.getMovieById(targetMovieId));
 				return "administration/content/updatePassthrough";
 			case "update":
-			if(!ms.movieExists(targetMovieId)){
-				return "error";
-			}
+				if (!ms.movieExists(targetMovieId)) {
+					return "error";
+				}
 
-			Movie targetMovieUpdate = ms.getMovieById(targetMovieId);
-			targetMovieUpdate.setTitle(targetTitle);
-			targetMovieUpdate.setImage(targetImage);
-			targetMovieUpdate.setReleaseDate(targetReleaseDate);
-			targetMovieUpdate.setBackgroundImage(targetBackgroundImage);
-			ms.updateMovie(targetMovieUpdate);
+				Movie targetMovieUpdate = ms.getMovieById(targetMovieId);
+				targetMovieUpdate.setTitle(targetTitle);
+				targetMovieUpdate.setImage(targetImage);
+				targetMovieUpdate.setReleaseDate(targetReleaseDate);
+				targetMovieUpdate.setBackgroundImage(targetBackgroundImage);
+				ms.updateMovie(targetMovieUpdate);
 
-			model.addAttribute("movies", ms.getMovies());
-			return "administration/content/contentManagement";
+				model.addAttribute("movies", ms.getMovies());
+				return "administration/content/contentManagement";
 			case "removePassthrough":
 				Movie targetMovieRemoval = ms.getMovieById(targetMovieId);
 				model.addAttribute("targetTitle", targetMovieRemoval.getTitle());
@@ -652,4 +652,42 @@ public class AppController {
 		return "error";
 	}
 
+	@PostMapping("/searchMovie")
+	public String searchMovie(@RequestParam String searchString,
+			HttpServletRequest request,
+			Model model) {
+				String username = "", password = "";
+				Cookie[] cookies = request.getCookies();
+				if (cookies == null) {
+					return "error";
+				}
+		
+				for (Cookie cookie : cookies) {
+					if (cookie.getName().equalsIgnoreCase("user-id"))
+						username = cookie.getValue();
+					else if (cookie.getName().equalsIgnoreCase("user-credentials"))
+						password = cookie.getValue();
+				}
+		
+				if (username.isEmpty() || password.isEmpty())
+					return "error";
+				// Check username
+				if (!us.userExists(username)) {
+					return "error";
+				}
+		
+				User user = us.getUserByUsername(username);
+		
+				// Check password
+				if (!user.getPassword().equals(password)) {
+					return "error";
+				}
+				
+				String finalSearch = "%" + searchString + "%";
+				model.addAttribute("user", user);
+				model.addAttribute("movies", ms.getMoviesByTitle(finalSearch));
+				model.addAttribute("userMovies", user.getUserMovies());
+		
+				return "home";
+	}
 }
