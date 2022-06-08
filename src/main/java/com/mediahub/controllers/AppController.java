@@ -440,12 +440,14 @@ public class AppController {
 
 		model.addAttribute("user", user);
 
+		UserRole targetUserRoleFinal;
+
 		switch (action) {
 			case "addPassthrough":
 				return "administration/user/addPassthrough";
 			case "add":
-				UserRole targetUserRoleFinal = UserRole.User;
-				switch(targetUserRole){
+				targetUserRoleFinal = UserRole.User;
+				switch (targetUserRole) {
 					case "Administrator":
 						targetUserRoleFinal = UserRole.Administrator;
 						break;
@@ -464,6 +466,35 @@ public class AppController {
 				}
 				User userAdd = new User(targetUser.getUsername(), targetUser.getPassword(), targetUser.getUserRole());
 				us.addUser(userAdd);
+				model.addAttribute("users", us.getUsers());
+				return "administration/user/userManagement";
+			case "updatePassthrough":
+				model.addAttribute("targetUser", us.getUserByUsername(targetUsername));
+				return "administration/user/updatePassthrough";
+			case "update":
+				targetUserRoleFinal = UserRole.User;
+				switch (targetUserRole) {
+					case "Administrator":
+						targetUserRoleFinal = UserRole.Administrator;
+						break;
+				}
+				User targetUserUpdate = us.getUserByUsername(targetUsername);
+				//Checks
+				if (targetUserUpdate.getUsername() == null
+						|| targetUserUpdate.getPassword() == null) {
+					new ResponseStatusException(HttpStatus.BAD_REQUEST, "Must specify username and password");
+				} else if (targetUserUpdate.getUsername().length() < 4) {
+					new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username length must be greater than 4");
+				} else if (targetUserUpdate.getPassword().length() < 4) {
+					new ResponseStatusException(HttpStatus.BAD_REQUEST, "Password length must be greater than 4");
+				}
+				if (us.userExists(targetUserUpdate.getUsername())) {
+					new ResponseStatusException(HttpStatus.CONFLICT, "Username already used");
+				}
+				targetUserUpdate.setPassword(targetPassword);
+				targetUserUpdate.setUserRole(targetUserRoleFinal);
+				User userUpdate = new User(targetUserUpdate.getUsername(), targetUserUpdate.getPassword(), targetUserUpdate.getUserRole());
+				us.updateUser(userUpdate);
 				model.addAttribute("users", us.getUsers());
 				return "administration/user/userManagement";
 			case "removePassthrough":
