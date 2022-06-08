@@ -161,7 +161,7 @@
     </svg>
 
     <main>
-        <nav class="p-3 border-bottom">
+        <header class="p-3 border-bottom">
             <div class="container">
                 <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                     <a href="#" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
@@ -186,6 +186,22 @@
                                 Tu colección
                             </a>
                         </li>
+                        <li th:if="${user.userRole.name().equalsIgnoreCase('Administrator')}">
+                            <a th:href="@{/app/admin/users}" class="nav-link text-secondary">
+                                <svg class="bi d-block mx-auto mb-1" width="24" height="24">
+                                    <use xlink:href="#userManagement"></use>
+                                </svg>
+                                Administrar usuarios
+                            </a>
+                        </li>
+                        <li th:if="${user.userRole.name().equalsIgnoreCase('Administrator')}">
+                            <a th:href="@{/app/admin/movies}" class="nav-link text-secondary">
+                                <svg class="bi d-block mx-auto mb-1" width="24" height="24">
+                                    <use xlink:href="#movieManagement"></use>
+                                </svg>
+                                Administrar contenidos
+                            </a>
+                        </li>
                     </ul>
 
                     <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
@@ -204,7 +220,7 @@
                     </div>
                 </div>
             </div>
-        </nav>
+        </header>
 
         <header class="py-3 mb-4 border-bottom">
             <div class="container d-flex flex-wrap justify-content-center">

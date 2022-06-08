@@ -177,7 +177,7 @@
     </svg>
 
     <main>
-        <nav class="p-3 border-bottom">
+        <header class="p-3 border-bottom">
             <div class="container">
                 <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                     <a href="#" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
@@ -203,7 +203,7 @@
                             </a>
                         </li>
                         <li th:if="${user.userRole.name().equalsIgnoreCase('Administrator')}">
-                            <a th:if="${user.userRole == 'Administrator'}" class="nav-link text-secondary">
+                            <a th:href="@{/app/admin/users}" class="nav-link text-secondary">
                                 <svg class="bi d-block mx-auto mb-1" width="24" height="24">
                                     <use xlink:href="#userManagement"></use>
                                 </svg>
@@ -236,7 +236,7 @@
                     </div>
                 </div>
             </div>
-        </nav>
+        </header>
 
         <div class="modal modal-sheet position-static d-block bg-secondary py-5" tabindex="-1" role="dialog" id="modalSheet">
             <div class="modal-dialog" role="document">
