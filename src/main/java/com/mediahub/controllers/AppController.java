@@ -246,20 +246,19 @@ public class AppController {
 			return "error";
 		// Check user exists
 		if (!us.userExists(username)) {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User doesn't exist");
+			return "error";
 		}
 
 		// Check UserMovie exists
 		if (!ums.userMovieExists(userMovieId)) {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-					"Movie container with the specified id doesn't exists in user's collection");
+			return "error";
 		}
 
 		User user = us.getUserByUsername(username);
 
 		// Check credentials
 		if (!user.getPassword().equals(password)) {
-			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Incorrect password");
+			return "error";
 		}
 
 		// First remove FK
@@ -300,20 +299,19 @@ public class AppController {
 			return "error";
 		// Check user exists
 		if (!us.userExists(username)) {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User doesn't exist");
+			return "error";
 		}
 
 		// Check UserMovie exists
 		if (!ums.userMovieExists(userMovieId)) {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-					"Movie container with the specified id doesn't exists in user's collection");
+			return "error";
 		}
 
 		User user = us.getUserByUsername(username);
 
 		// Check credentials
 		if (!user.getPassword().equals(password)) {
-			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Incorrect password");
+			return "error";
 		}
 
 		UserMovie userMovie = ums.getUserMovieById(userMovieId);
@@ -461,14 +459,14 @@ public class AppController {
 				User targetUser = new User(targetUsername, targetPassword, targetUserRoleFinal);
 				if (targetUser.getUsername() == null
 						|| targetUser.getPassword() == null) {
-					new ResponseStatusException(HttpStatus.BAD_REQUEST, "Must specify username and password");
+							return "error";
 				} else if (targetUser.getUsername().length() < 4) {
-					new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username length must be greater than 4");
+					return "error";
 				} else if (targetUser.getPassword().length() < 4) {
-					new ResponseStatusException(HttpStatus.BAD_REQUEST, "Password length must be greater than 4");
+					return "error";
 				}
 				if (us.userExists(targetUser.getUsername())) {
-					new ResponseStatusException(HttpStatus.CONFLICT, "Username already used");
+					return "error";
 				}
 				User userAdd = new User(targetUser.getUsername(), targetUser.getPassword(), targetUser.getUserRole());
 				us.addUser(userAdd);
@@ -488,14 +486,14 @@ public class AppController {
 				// Checks
 				if (targetUserUpdate.getUsername() == null
 						|| targetUserUpdate.getPassword() == null) {
-					new ResponseStatusException(HttpStatus.BAD_REQUEST, "Must specify username and password");
+							return "error";
 				} else if (targetUserUpdate.getUsername().length() < 4) {
-					new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username length must be greater than 4");
+					return "error";
 				} else if (targetUserUpdate.getPassword().length() < 4) {
-					new ResponseStatusException(HttpStatus.BAD_REQUEST, "Password length must be greater than 4");
+					return "error";
 				}
 				if (us.userExists(targetUserUpdate.getUsername())) {
-					new ResponseStatusException(HttpStatus.CONFLICT, "Username already used");
+					return "error";
 				}
 				targetUserUpdate.setPassword(targetPassword);
 				targetUserUpdate.setUserRole(targetUserRoleFinal);
@@ -702,16 +700,16 @@ public class AppController {
 		//Check all values has been passed and are valid
 		if (username.isBlank() 
 				|| password.isBlank()) {
-			new ResponseStatusException(HttpStatus.BAD_REQUEST, "Must specify username and password");
+			return "error";
 		} else if (username.length() < 4) {
-			new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username length must be greater than 4");
+			return "error";
 		} else if (password.length() < 4) {
-			new ResponseStatusException(HttpStatus.BAD_REQUEST, "Password length must be greater than 4");
+			return "error";
 		}
 
 		//Check if user exists
 		if (us.userExists(username)) {
-			new ResponseStatusException(HttpStatus.CONFLICT, "Username already used");
+			return "error";
 		}
 
 		User userAdd = new User(username, password, UserRole.User);
