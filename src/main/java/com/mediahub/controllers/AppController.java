@@ -716,4 +716,9 @@ public class AppController {
 		us.addUser(userAdd);
 		return "registration/success";
 	}
+
+	@GetMapping("/help")
+	public String help(){
+		return "help";
+	}
 }
