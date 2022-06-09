@@ -690,4 +690,32 @@ public class AppController {
 		
 				return "home";
 	}
+
+	@GetMapping("/registration")
+	public String registration(){
+		return "registration/registration";
+	}
+
+	@PostMapping("/registration/run")
+	public String registrationProcess(@RequestParam String username, @RequestParam String password){
+		
+		//Check all values has been passed and are valid
+		if (username.isBlank() 
+				|| password.isBlank()) {
+			new ResponseStatusException(HttpStatus.BAD_REQUEST, "Must specify username and password");
+		} else if (username.length() < 4) {
+			new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username length must be greater than 4");
+		} else if (password.length() < 4) {
+			new ResponseStatusException(HttpStatus.BAD_REQUEST, "Password length must be greater than 4");
+		}
+
+		//Check if user exists
+		if (us.userExists(username)) {
+			new ResponseStatusException(HttpStatus.CONFLICT, "Username already used");
+		}
+
+		User userAdd = new User(username, password, UserRole.User);
+		us.addUser(userAdd);
+		return "registration/success";
+	}
 }
