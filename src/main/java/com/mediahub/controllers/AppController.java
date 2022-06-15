@@ -54,6 +54,8 @@ public class AppController {
 
 		// Check username
 		if (!us.userExists(username)) {
+			model.addAttribute("errorTitle", "Credenciales incorrectas");
+			model.addAttribute("errorDescription", "No se ha encontrado el usuario especificado.");
 			return "error";
 		}
 
@@ -61,6 +63,8 @@ public class AppController {
 
 		// Check password
 		if (!user.getPassword().equals(password)) {
+			model.addAttribute("errorTitle", "Credenciales incorrectas");
+			model.addAttribute("errorDescription", "Contraseña incorrecta.");
 			return "error";
 		}
 
@@ -87,6 +91,8 @@ public class AppController {
 		String username = "", password = "";
 		Cookie[] cookies = request.getCookies();
 		if (cookies == null) {
+			model.addAttribute("errorTitle", "No has iniciado sesión");
+			model.addAttribute("errorDescription", "No se ha encontrado token de inicio de sesión en tu navegador.");
 			return "error";
 		}
 
@@ -97,10 +103,16 @@ public class AppController {
 				password = cookie.getValue();
 		}
 
-		if (username.isEmpty() || password.isEmpty())
+		if (username.isEmpty() || password.isEmpty()) {
+			model.addAttribute("errorTitle", "No has iniciado sesión");
+			model.addAttribute("errorDescription",
+					"No se ha encontrado token de inicio de sesión válido en tu navegador.");
 			return "error";
+		}
 		// Check username
 		if (!us.userExists(username)) {
+			model.addAttribute("errorTitle", "Usuario no registrado o eliminado");
+			model.addAttribute("errorDescription", "Tu usuario no se encuentra registrado.");
 			return "error";
 		}
 
@@ -108,6 +120,9 @@ public class AppController {
 
 		// Check password
 		if (!user.getPassword().equals(password)) {
+			model.addAttribute("errorTitle", "Credenciales inválidas");
+			model.addAttribute("errorDescription",
+					"La contraseña ha cambiado, si no has cambiado tu contraseña, contacta con un administrador.");
 			return "error";
 		}
 
@@ -124,6 +139,8 @@ public class AppController {
 		String username = "", password = "";
 		Cookie[] cookies = request.getCookies();
 		if (cookies == null) {
+			model.addAttribute("errorTitle", "No has iniciado sesión");
+			model.addAttribute("errorDescription", "No se ha encontrado token de inicio de sesión en tu navegador.");
 			return "error";
 		}
 
@@ -134,10 +151,16 @@ public class AppController {
 				password = cookie.getValue();
 		}
 
-		if (username.isEmpty() || password.isEmpty())
+		if (username.isEmpty() || password.isEmpty()) {
+			model.addAttribute("errorTitle", "No has iniciado sesión");
+			model.addAttribute("errorDescription",
+					"No se ha encontrado token de inicio de sesión válido en tu navegador.");
 			return "error";
+		}
 		// Check username
 		if (!us.userExists(username)) {
+			model.addAttribute("errorTitle", "Usuario no registrado o eliminado");
+			model.addAttribute("errorDescription", "Tu usuario no se encuentra registrado.");
 			return "error";
 		}
 
@@ -145,11 +168,17 @@ public class AppController {
 
 		// Check password
 		if (!user.getPassword().equals(password)) {
+			model.addAttribute("errorTitle", "Credenciales inválidas");
+			model.addAttribute("errorDescription",
+					"La contraseña ha cambiado, si no has cambiado tu contraseña, contacta con un administrador.");
 			return "error";
 		}
 
 		// Check movie
 		if (!ms.movieExists(movieId)) {
+			model.addAttribute("errorTitle", "Película no encontrada");
+			model.addAttribute("errorDescription",
+					"La película especificada no ha sido encontrada, es posible que fuera eliminada.");
 			return "error";
 		}
 
@@ -172,6 +201,8 @@ public class AppController {
 		String username = "", password = "";
 		Cookie[] cookies = request.getCookies();
 		if (cookies == null) {
+			model.addAttribute("errorTitle", "No has iniciado sesión");
+			model.addAttribute("errorDescription", "No se ha encontrado token de inicio de sesión en tu navegador.");
 			return "error";
 		}
 
@@ -182,10 +213,16 @@ public class AppController {
 				password = cookie.getValue();
 		}
 
-		if (username.isEmpty() || password.isEmpty())
+		if (username.isEmpty() || password.isEmpty()) {
+			model.addAttribute("errorTitle", "No has iniciado sesión");
+			model.addAttribute("errorDescription",
+					"No se ha encontrado token de inicio de sesión válido en tu navegador.");
 			return "error";
+		}
 		// Check username
 		if (!us.userExists(username)) {
+			model.addAttribute("errorTitle", "Usuario no registrado o eliminado");
+			model.addAttribute("errorDescription", "Tu usuario no se encuentra registrado.");
 			return "error";
 		}
 
@@ -193,11 +230,17 @@ public class AppController {
 
 		// Check password
 		if (!user.getPassword().equals(password)) {
+			model.addAttribute("errorTitle", "Credenciales inválidas");
+			model.addAttribute("errorDescription",
+					"La contraseña ha cambiado, si no has cambiado tu contraseña, contacta con un administrador.");
 			return "error";
 		}
 
 		// Check movie
 		if (!ms.movieExists(movieId)) {
+			model.addAttribute("errorTitle", "Película no encontrada");
+			model.addAttribute("errorDescription",
+					"La película especificada no ha sido encontrada, es posible que fuera eliminada.");
 			return "error";
 		}
 
@@ -230,6 +273,8 @@ public class AppController {
 		String username = "", password = "";
 		Cookie[] cookies = request.getCookies();
 		if (cookies == null) {
+			model.addAttribute("errorTitle", "No has iniciado sesión");
+			model.addAttribute("errorDescription", "No se ha encontrado token de inicio de sesión en tu navegador.");
 			return "error";
 		}
 
@@ -240,15 +285,23 @@ public class AppController {
 				password = cookie.getValue();
 		}
 
-		if (username.isEmpty() || password.isEmpty())
+		if (username.isEmpty() || password.isEmpty()) {
+			model.addAttribute("errorTitle", "No has iniciado sesión");
+			model.addAttribute("errorDescription",
+					"No se ha encontrado token de inicio de sesión válido en tu navegador.");
 			return "error";
+		}
 		// Check user exists
 		if (!us.userExists(username)) {
+			model.addAttribute("errorTitle", "Usuario no registrado o eliminado");
+			model.addAttribute("errorDescription", "Tu usuario no se encuentra registrado.");
 			return "error";
 		}
 
 		// Check UserMovie exists
 		if (!ums.userMovieExists(userMovieId)) {
+			model.addAttribute("errorTitle", "No encontrado");
+			model.addAttribute("errorDescription", "Esta película no se encuentra en la colección.");
 			return "error";
 		}
 
@@ -256,6 +309,9 @@ public class AppController {
 
 		// Check credentials
 		if (!user.getPassword().equals(password)) {
+			model.addAttribute("errorTitle", "Credenciales inválidas");
+			model.addAttribute("errorDescription",
+					"La contraseña ha cambiado, si no has cambiado tu contraseña, contacta con un administrador.");
 			return "error";
 		}
 
@@ -283,6 +339,8 @@ public class AppController {
 		String username = "", password = "";
 		Cookie[] cookies = request.getCookies();
 		if (cookies == null) {
+			model.addAttribute("errorTitle", "No has iniciado sesión");
+			model.addAttribute("errorDescription", "No se ha encontrado token de inicio de sesión en tu navegador.");
 			return "error";
 		}
 
@@ -293,15 +351,23 @@ public class AppController {
 				password = cookie.getValue();
 		}
 
-		if (username.isEmpty() || password.isEmpty())
+		if (username.isEmpty() || password.isEmpty()) {
+			model.addAttribute("errorTitle", "No has iniciado sesión");
+			model.addAttribute("errorDescription",
+					"No se ha encontrado token de inicio de sesión válido en tu navegador.");
 			return "error";
+		}
 		// Check user exists
 		if (!us.userExists(username)) {
+			model.addAttribute("errorTitle", "Usuario no registrado o eliminado");
+			model.addAttribute("errorDescription", "Tu usuario no se encuentra registrado.");
 			return "error";
 		}
 
 		// Check UserMovie exists
 		if (!ums.userMovieExists(userMovieId)) {
+			model.addAttribute("errorTitle", "No encontrado");
+			model.addAttribute("errorDescription", "La película no se encuentra en la colección.");
 			return "error";
 		}
 
@@ -309,6 +375,9 @@ public class AppController {
 
 		// Check credentials
 		if (!user.getPassword().equals(password)) {
+			model.addAttribute("errorTitle", "Credenciales inválidas");
+			model.addAttribute("errorDescription",
+					"La contraseña ha cambiado, si no has cambiado tu contraseña, contacta con un administrador.");
 			return "error";
 		}
 
@@ -329,6 +398,8 @@ public class AppController {
 		String username = "", password = "";
 		Cookie[] cookies = request.getCookies();
 		if (cookies == null) {
+			model.addAttribute("errorTitle", "No has iniciado sesión");
+			model.addAttribute("errorDescription", "No se ha encontrado token de inicio de sesión en tu navegador.");
 			return "error";
 		}
 
@@ -339,11 +410,17 @@ public class AppController {
 				password = cookie.getValue();
 		}
 
-		if (username.isEmpty() || password.isEmpty())
+		if (username.isEmpty() || password.isEmpty()) {
+			model.addAttribute("errorTitle", "No has iniciado sesión");
+			model.addAttribute("errorDescription",
+					"No se ha encontrado token de inicio de sesión válido en tu navegador.");
 			return "error";
+		}
 
 		// Check username
 		if (!us.userExists(username)) {
+			model.addAttribute("errorTitle", "Usuario no registrado o eliminado");
+			model.addAttribute("errorDescription", "Tu usuario no se encuentra registrado.");
 			return "error";
 		}
 
@@ -351,6 +428,9 @@ public class AppController {
 
 		// Check password
 		if (!user.getPassword().equals(password)) {
+			model.addAttribute("errorTitle", "Credenciales inválidas");
+			model.addAttribute("errorDescription",
+					"La contraseña ha cambiado, si no has cambiado tu contraseña, contacta con un administrador.");
 			return "error";
 		}
 
@@ -366,6 +446,8 @@ public class AppController {
 		String username = "", password = "";
 		Cookie[] cookies = request.getCookies();
 		if (cookies == null) {
+			model.addAttribute("errorTitle", "No has iniciado sesión");
+			model.addAttribute("errorDescription", "No se ha encontrado token de inicio de sesión en tu navegador.");
 			return "error";
 		}
 
@@ -376,11 +458,17 @@ public class AppController {
 				password = cookie.getValue();
 		}
 
-		if (username.isEmpty() || password.isEmpty())
+		if (username.isEmpty() || password.isEmpty()) {
+			model.addAttribute("errorTitle", "No has iniciado sesión");
+			model.addAttribute("errorDescription",
+					"No se ha encontrado token de inicio de sesión válido en tu navegador.");
 			return "error";
+		}
 
 		// Check username
 		if (!us.userExists(username)) {
+			model.addAttribute("errorTitle", "Usuario no registrado o eliminado");
+			model.addAttribute("errorDescription", "Tu usuario no se encuentra registrado.");
 			return "error";
 		}
 
@@ -388,11 +476,16 @@ public class AppController {
 
 		// Check password
 		if (!user.getPassword().equals(password)) {
+			model.addAttribute("errorTitle", "Credenciales inválidas");
+			model.addAttribute("errorDescription",
+					"La contraseña ha cambiado, si no has cambiado tu contraseña, contacta con un administrador.");
 			return "error";
 		}
 
 		// Check role
 		if (user.getUserRole() != UserRole.Administrator) {
+			model.addAttribute("errorTitle", "Sin permisos");
+			model.addAttribute("errorDescription", "");
 			return "error";
 		}
 
@@ -410,6 +503,8 @@ public class AppController {
 		String username = "", password = "";
 		Cookie[] cookies = request.getCookies();
 		if (cookies == null) {
+			model.addAttribute("errorTitle", "No has iniciado sesión");
+			model.addAttribute("errorDescription", "No se ha encontrado token de inicio de sesión en tu navegador.");
 			return "error";
 		}
 
@@ -420,11 +515,17 @@ public class AppController {
 				password = cookie.getValue();
 		}
 
-		if (username.isEmpty() || password.isEmpty())
+		if (username.isEmpty() || password.isEmpty()) {
+			model.addAttribute("errorTitle", "No has iniciado sesión");
+			model.addAttribute("errorDescription",
+					"No se ha encontrado token de inicio de sesión válido en tu navegador.");
 			return "error";
+		}
 
 		// Check username
 		if (!us.userExists(username)) {
+			model.addAttribute("errorTitle", "Usuario no registrado o eliminado");
+			model.addAttribute("errorDescription", "Tu usuario no se encuentra registrado.");
 			return "error";
 		}
 
@@ -432,11 +533,16 @@ public class AppController {
 
 		// Check password
 		if (!user.getPassword().equals(password)) {
+			model.addAttribute("errorTitle", "Credenciales inválidas");
+			model.addAttribute("errorDescription",
+					"La contraseña ha cambiado, si no has cambiado tu contraseña, contacta con un administrador.");
 			return "error";
 		}
 
 		// Check role
 		if (user.getUserRole() != UserRole.Administrator) {
+			model.addAttribute("errorTitle", "Sin permisos");
+			model.addAttribute("errorDescription", "");
 			return "error";
 		}
 
@@ -457,13 +563,21 @@ public class AppController {
 				User targetUser = new User(targetUsername, targetPassword, targetUserRoleFinal);
 				if (targetUser.getUsername() == null
 						|| targetUser.getPassword() == null) {
-							return "error";
+							model.addAttribute("errorTitle", "Sin completar");
+							model.addAttribute("errorDescription", "No ha completado los campos necesarios.");
+					return "error";
 				} else if (targetUser.getUsername().length() < 4) {
+					model.addAttribute("errorTitle", "Longitud de usuario menor a 4 caracteres");
+					model.addAttribute("errorDescription", "El nombre de usuario debe ser mayor a 4 caracteres.");
 					return "error";
 				} else if (targetUser.getPassword().length() < 4) {
+					model.addAttribute("errorTitle", "Longitud de contraseña menor a 4 caracteres");
+					model.addAttribute("errorDescription", "La contraseña debe ser mayor a 4 caracteres");
 					return "error";
 				}
 				if (us.userExists(targetUser.getUsername())) {
+					model.addAttribute("errorTitle", "Escoga otro nombre de usuario");
+					model.addAttribute("errorDescription", "El nombre de usuario escogido ya es propiedad de otro usuario.");
 					return "error";
 				}
 				User userAdd = new User(targetUser.getUsername(), targetUser.getPassword(), targetUser.getUserRole());
@@ -484,10 +598,16 @@ public class AppController {
 				// Checks
 				if (targetUserUpdate.getUsername() == null
 						|| targetUserUpdate.getPassword() == null) {
-							return "error";
+							model.addAttribute("errorTitle", "Sin completar");
+							model.addAttribute("errorDescription", "No ha completado los campos necesarios.");
+					return "error";
 				} else if (targetUserUpdate.getUsername().length() < 4) {
+					model.addAttribute("errorTitle", "Longitud de usuario menor a 4 caracteres");
+					model.addAttribute("errorDescription", "El nombre de usuario debe ser mayor a 4 caracteres.");
 					return "error";
 				} else if (targetUserUpdate.getPassword().length() < 4) {
+					model.addAttribute("errorTitle", "Longitud de contraseña menor a 4 caracteres");
+					model.addAttribute("errorDescription", "La contraseña debe ser mayor a 4 caracteres");
 					return "error";
 				}
 				targetUserUpdate.setPassword(targetPassword);
@@ -516,6 +636,8 @@ public class AppController {
 				return "administration/user/userManagement";
 		}
 
+		model.addAttribute("errorTitle", "No se ha especificado acción");
+		model.addAttribute("errorDescription", "No se ha especificado acción (añadir, actualizar o eliminar), debe navegar a esta página desde el menú.");
 		return "error";
 	}
 
@@ -525,6 +647,8 @@ public class AppController {
 		String username = "", password = "";
 		Cookie[] cookies = request.getCookies();
 		if (cookies == null) {
+			model.addAttribute("errorTitle", "No has iniciado sesión");
+			model.addAttribute("errorDescription", "No se ha encontrado token de inicio de sesión en tu navegador.");
 			return "error";
 		}
 
@@ -535,11 +659,17 @@ public class AppController {
 				password = cookie.getValue();
 		}
 
-		if (username.isEmpty() || password.isEmpty())
+		if (username.isEmpty() || password.isEmpty()) {
+			model.addAttribute("errorTitle", "No has iniciado sesión");
+			model.addAttribute("errorDescription",
+					"No se ha encontrado token de inicio de sesión válido en tu navegador.");
 			return "error";
+		}
 
 		// Check username
 		if (!us.userExists(username)) {
+			model.addAttribute("errorTitle", "Usuario no registrado o eliminado");
+			model.addAttribute("errorDescription", "Tu usuario no se encuentra registrado.");
 			return "error";
 		}
 
@@ -547,11 +677,16 @@ public class AppController {
 
 		// Check password
 		if (!user.getPassword().equals(password)) {
+			model.addAttribute("errorTitle", "Credenciales inválidas");
+			model.addAttribute("errorDescription",
+					"La contraseña ha cambiado, si no has cambiado tu contraseña, contacta con un administrador.");
 			return "error";
 		}
 
 		// Check role
 		if (user.getUserRole() != UserRole.Administrator) {
+			model.addAttribute("errorTitle", "Sin permisos");
+			model.addAttribute("errorDescription", "");
 			return "error";
 		}
 
@@ -575,6 +710,8 @@ public class AppController {
 
 		Cookie[] cookies = request.getCookies();
 		if (cookies == null) {
+			model.addAttribute("errorTitle", "No has iniciado sesión");
+			model.addAttribute("errorDescription", "No se ha encontrado token de inicio de sesión en tu navegador.");
 			return "error";
 		}
 
@@ -585,11 +722,17 @@ public class AppController {
 				password = cookie.getValue();
 		}
 
-		if (username.isEmpty() || password.isEmpty())
+		if (username.isEmpty() || password.isEmpty()) {
+			model.addAttribute("errorTitle", "No has iniciado sesión");
+			model.addAttribute("errorDescription",
+					"No se ha encontrado token de inicio de sesión válido en tu navegador.");
 			return "error";
+		}
 
 		// Check username
 		if (!us.userExists(username)) {
+			model.addAttribute("errorTitle", "Usuario no registrado o eliminado");
+			model.addAttribute("errorDescription", "Tu usuario no se encuentra registrado.");
 			return "error";
 		}
 
@@ -597,11 +740,16 @@ public class AppController {
 
 		// Check password
 		if (!user.getPassword().equals(password)) {
+			model.addAttribute("errorTitle", "Credenciales inválidas");
+			model.addAttribute("errorDescription",
+					"La contraseña ha cambiado, si no has cambiado tu contraseña, contacta con un administrador.");
 			return "error";
 		}
 
 		// Check role
 		if (user.getUserRole() != UserRole.Administrator) {
+			model.addAttribute("errorTitle", "Sin permisos");
+			model.addAttribute("errorDescription", "");
 			return "error";
 		}
 
@@ -625,6 +773,8 @@ public class AppController {
 				return "administration/content/updatePassthrough";
 			case "update":
 				if (!ms.movieExists(targetMovieId)) {
+					model.addAttribute("errorTitle", "Película no encontrada");
+					model.addAttribute("errorDescription", "No se ha encontrado la película en la colección");
 					return "error";
 				}
 
@@ -650,6 +800,8 @@ public class AppController {
 				return "administration/content/contentManagement";
 		}
 
+		model.addAttribute("errorTitle", "Sin acción");
+		model.addAttribute("errorDescription", "Se debe especificar acción (añadir, actualizar o eliminar), navegación por menú requerida.");
 		return "error";
 	}
 
@@ -660,6 +812,8 @@ public class AppController {
 		String username = "", password = "";
 		Cookie[] cookies = request.getCookies();
 		if (cookies == null) {
+			model.addAttribute("errorTitle", "No has iniciado sesión");
+			model.addAttribute("errorDescription", "No se ha encontrado token de inicio de sesión en tu navegador.");
 			return "error";
 		}
 
@@ -670,10 +824,16 @@ public class AppController {
 				password = cookie.getValue();
 		}
 
-		if (username.isEmpty() || password.isEmpty())
+		if (username.isEmpty() || password.isEmpty()) {
+			model.addAttribute("errorTitle", "No has iniciado sesión");
+			model.addAttribute("errorDescription",
+					"No se ha encontrado token de inicio de sesión válido en tu navegador.");
 			return "error";
+		}
 		// Check username
 		if (!us.userExists(username)) {
+			model.addAttribute("errorTitle", "Usuario no registrado o eliminado");
+			model.addAttribute("errorDescription", "Tu usuario no se encuentra registrado.");
 			return "error";
 		}
 
@@ -681,6 +841,9 @@ public class AppController {
 
 		// Check password
 		if (!user.getPassword().equals(password)) {
+			model.addAttribute("errorTitle", "Credenciales inválidas");
+			model.addAttribute("errorDescription",
+					"La contraseña ha cambiado, si no has cambiado tu contraseña, contacta con un administrador.");
 			return "error";
 		}
 
@@ -698,20 +861,28 @@ public class AppController {
 	}
 
 	@PostMapping("/registration/run")
-	public String registrationProcess(@RequestParam String username, @RequestParam String password) {
+	public String registrationProcess(@RequestParam String username, @RequestParam String password, Model model) {
 
 		// Check all values has been passed and are valid
 		if (username.isBlank()
 				|| password.isBlank()) {
+					model.addAttribute("errorTitle", "Sin completar");
+					model.addAttribute("errorDescription", "No ha completado los campos necesarios.");
 			return "error";
 		} else if (username.length() < 4) {
+			model.addAttribute("errorTitle", "Longitud de usuario menor a 4 caracteres");
+			model.addAttribute("errorDescription", "El nombre de usuario debe ser mayor a 4 caracteres.");
 			return "error";
 		} else if (password.length() < 4) {
+			model.addAttribute("errorTitle", "Longitud de contraseña menor a 4 caracteres");
+			model.addAttribute("errorDescription", "La contraseña debe ser mayor a 4 caracteres");
 			return "error";
 		}
 
 		// Check if user exists
 		if (us.userExists(username)) {
+			model.addAttribute("errorTitle", "Nombre de usuario no disponible");
+			model.addAttribute("errorDescription", "Otro usuario ya ha escogido el nombre de usuario especificado.");
 			return "error";
 		}
 
