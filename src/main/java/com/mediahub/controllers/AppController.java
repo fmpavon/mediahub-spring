@@ -794,6 +794,18 @@ public class AppController {
 				return "administration/content/removePassthrough";
 			case "remove":
 				if (ms.movieExists(targetMovieId)) {
+					List<UserMovie> allUm = ums.getMovies();
+					for (UserMovie um : allUm) {
+						if (um.getMovie().getId() == targetMovieId) {
+							User targetFk = us.getUserByUsername(um.getUser().getUsername());
+							List<UserMovie> stFk = targetFk.getUserMovies();
+							targetFk.setUserMovies(null);
+							us.updateUser(targetFk);
+							for (UserMovie umFK : stFk) {
+								ums.removeUserMovieById(umFK.getId());
+							}
+						}
+					}
 					ms.removeMovieById(targetMovieId);
 				}
 				model.addAttribute("movies", ms.getMovies());
