@@ -490,9 +490,6 @@ public class AppController {
 				} else if (targetUserUpdate.getPassword().length() < 4) {
 					return "error";
 				}
-				if (us.userExists(targetUserUpdate.getUsername())) {
-					return "error";
-				}
 				targetUserUpdate.setPassword(targetPassword);
 				targetUserUpdate.setUserRole(targetUserRoleFinal);
 				User userUpdate = new User(targetUserUpdate.getUsername(), targetUserUpdate.getPassword(),
