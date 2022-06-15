@@ -505,6 +505,14 @@ public class AppController {
 				return "administration/user/removePassthrough";
 			case "remove":
 				if (us.userExists(targetUsername)) {
+					// First remove FK
+					User targetFk = us.getUserByUsername(targetUsername);
+					List<UserMovie> stFk = targetFk.getUserMovies();
+					targetFk.setUserMovies(null);
+					us.updateUser(targetFk);
+					for (UserMovie um : stFk) {
+						ums.removeUserMovieById(um.getId());
+					}
 					us.removeUserById(targetUsername);
 				}
 				model.addAttribute("users", us.getUsers());
@@ -652,51 +660,51 @@ public class AppController {
 	public String searchMovie(@RequestParam String searchString,
 			HttpServletRequest request,
 			Model model) {
-				String username = "", password = "";
-				Cookie[] cookies = request.getCookies();
-				if (cookies == null) {
-					return "error";
-				}
-		
-				for (Cookie cookie : cookies) {
-					if (cookie.getName().equalsIgnoreCase("user-id"))
-						username = cookie.getValue();
-					else if (cookie.getName().equalsIgnoreCase("user-credentials"))
-						password = cookie.getValue();
-				}
-		
-				if (username.isEmpty() || password.isEmpty())
-					return "error";
-				// Check username
-				if (!us.userExists(username)) {
-					return "error";
-				}
-		
-				User user = us.getUserByUsername(username);
-		
-				// Check password
-				if (!user.getPassword().equals(password)) {
-					return "error";
-				}
-				
-				String finalSearch = "%" + searchString + "%";
-				model.addAttribute("user", user);
-				model.addAttribute("movies", ms.getMoviesByTitle(finalSearch));
-				model.addAttribute("userMovies", user.getUserMovies());
-		
-				return "home";
+		String username = "", password = "";
+		Cookie[] cookies = request.getCookies();
+		if (cookies == null) {
+			return "error";
+		}
+
+		for (Cookie cookie : cookies) {
+			if (cookie.getName().equalsIgnoreCase("user-id"))
+				username = cookie.getValue();
+			else if (cookie.getName().equalsIgnoreCase("user-credentials"))
+				password = cookie.getValue();
+		}
+
+		if (username.isEmpty() || password.isEmpty())
+			return "error";
+		// Check username
+		if (!us.userExists(username)) {
+			return "error";
+		}
+
+		User user = us.getUserByUsername(username);
+
+		// Check password
+		if (!user.getPassword().equals(password)) {
+			return "error";
+		}
+
+		String finalSearch = "%" + searchString + "%";
+		model.addAttribute("user", user);
+		model.addAttribute("movies", ms.getMoviesByTitle(finalSearch));
+		model.addAttribute("userMovies", user.getUserMovies());
+
+		return "home";
 	}
 
 	@GetMapping("/registration")
-	public String registration(){
+	public String registration() {
 		return "registration/registration";
 	}
 
 	@PostMapping("/registration/run")
-	public String registrationProcess(@RequestParam String username, @RequestParam String password){
-		
-		//Check all values has been passed and are valid
-		if (username.isBlank() 
+	public String registrationProcess(@RequestParam String username, @RequestParam String password) {
+
+		// Check all values has been passed and are valid
+		if (username.isBlank()
 				|| password.isBlank()) {
 			return "error";
 		} else if (username.length() < 4) {
@@ -705,7 +713,7 @@ public class AppController {
 			return "error";
 		}
 
-		//Check if user exists
+		// Check if user exists
 		if (us.userExists(username)) {
 			return "error";
 		}
@@ -716,12 +724,12 @@ public class AppController {
 	}
 
 	@GetMapping("/help")
-	public String help(){
+	public String help() {
 		return "help";
 	}
 
 	@GetMapping("/about")
-	public String about(){
+	public String about() {
 		return "about";
 	}
 }
