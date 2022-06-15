@@ -719,4 +719,9 @@ public class AppController {
 	public String help(){
 		return "help";
 	}
+
+	@GetMapping("/about")
+	public String about(){
+		return "about";
+	}
 }

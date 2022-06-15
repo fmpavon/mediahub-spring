@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.98.0">
-    <title>MediaHub | Inicio</title>
+    <title>MediaHub | Acerca de</title>
 
     <link rel="canonical" href="https://getbootstrap.comhttps://getbootstrap.com/docs/5.2/examples/headers/">
 
@@ -164,6 +164,7 @@
 
     <main>
         <div class="col-lg-8 mx-auto p-3 py-md-5">
+            
             <header class="d-flex align-items-center pb-3 mb-5 border-bottom">
               <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
                 <img src="https://img.webme.com/pic/m/mediahub-dev/icon.png" width="40" class="me-2" viewBox="0 0 118 94" role="img"><title>MediaHub</title></img>
@@ -172,45 +173,10 @@
             </header>
           
             <main>
-              <h1>Bienvenid@ a MediaHub</h1>
-              <p class="fs-5 col-md-8">Navega por un catálogo actualizado de películas y mantiene tu colección personal. LLeva un registro de las próximas películas que quieres ver, y las que ya has visto.</p>
-          
-              <div class="mb-5">
-                <a th:href="@{/app/registration}" class="btn btn-primary btn-lg px-4">Registrate ahora</a>
-                <p class="mt-1">¿Ya tienes una cuenta? <a th:href="@{/app/login}">Inicia sesión</a>.</p>
-              </div>
-          
-              <hr>
-          
-              <div class="row g-5">
-                <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
-                    <div class="feature col">
-                      <div class="feature-icon d-inline-flex align-items-center justify-content-center bg-primary bg-gradient text-white fs-2 mb-3">
-                        <svg class="bi" width="1em" height="1em"><use xlink:href="#movieManagement"></use></svg>
-                      </div>
-                      <h2>Catálogo de películas</h2>
-                      <p>Un catálogo de películas siempre en crecimiento. Cuenta tanto como con imágenes de fondo como con banners, así como fecha de estreno.</p>
-                    </div>
-                    <div class="feature col">
-                      <div class="feature-icon d-inline-flex align-items-center justify-content-center bg-primary bg-gradient text-white fs-2 mb-3">
-                        <svg class="bi" width="1em" height="1em"><use xlink:href="#collection"></use></svg>
-                      </div>
-                      <h2>Tu colección personal</h2>
-                      <p>Guarda tus películas favoritas en tu colección personal, y marca cada película como vista o pendiente de ver.</p>
-                    </div>
-                    <div class="feature col">
-                      <div class="feature-icon d-inline-flex align-items-center justify-content-center bg-primary bg-gradient text-white fs-2 mb-3">
-                        <svg class="bi" width="1em" height="1em"><use xlink:href="#calendar"></use></svg>
-                      </div>
-                      <h2>Siempre actualizado</h2>
-                      <p>El catálogo de películas siempre se encuentra actualizado con los últimos estrenos, por los usuarios administradores.</p>
-                    </div>
-                  </div>
-                  <p>Para conocer más sobre como funciona la aplicación, puedes consultar <a th:href="@{/app/help}">la página de ayuda</a>.</p>
-                  <p><a th:href="@{/app/about}">Acerca de</a>.</p>
-              </div>
-            </main>
-            <footer class="pt-5 my-5 text-muted border-top">
+                <button class="mb-2" onclick="window.history.back();">⬅ Volver a la página anterior</button>
+              <h1>Acerca de</h1>
+              <p class="fs-5 col-md-8">Aplicación desarrollada por Francisco Manuel Pavón Fernández, alumno de 2º DAM en I.E.S. Trassierra.</p>
+              <footer class="pt-5 my-5 text-muted border-top">
               Francisco Manuel Pavón Fernández · 2º DAM
             </footer>
           </div>
