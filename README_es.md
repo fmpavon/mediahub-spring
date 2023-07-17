@@ -1,6 +1,6 @@
 <p align="center"><a href="./README.md">English</a> - <b>Español</b></p>
 
-> **Repository archived**
+> **Repositorio archivado**
 > 
 > Aunque ya no se mantenga o actualice activamente, te invito a explorar el código y la documentación, ya que reflejan la pasión y el esfuerzo que puse en este proyecto. Aunque algunos aspectos pueden haber quedado obsoletos, espero que este archivo sirva como testimonio de mi crecimiento como desarrollador. Gracias por tomarte el tiempo de explorar este repositorio y por formar parte de mi viaje.
 >
